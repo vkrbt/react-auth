@@ -1,5 +1,6 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
+import sockets from '../sockets/index';
 
 function Home() {
   return (

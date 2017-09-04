@@ -1,6 +1,6 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
-import sockets from '../sockets/index';
+import Chat from '../containers/Chat.jsx';
 
 function Home() {
   return (
@@ -11,6 +11,7 @@ function Home() {
           extra attention to featured content or information.
       </p>
       <p><Button bsStyle="primary">Learn more</Button></p>
+      <Chat />
     </Jumbotron>
   );
 }

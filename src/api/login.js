@@ -1,6 +1,6 @@
 import { stringify } from 'query-string';
 
-const register = (name, password) => {
+const fetchLogin = (name, password) => {
   const query = { name, password };
   const config = {
     method: 'POST',
@@ -12,4 +12,4 @@ const register = (name, password) => {
   return fetch('http://localhost:3101/login', config);
 };
 
-export default register;
+export default fetchLogin;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Col, Button } from 'react-bootstrap';
-import login from './api/login';
+import register from '../api/register';
 
-class Login extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,32 +12,32 @@ class Login extends Component {
       passwordIsValid: null,
     };
   }
-  getButtonDisableState = () => !(this.state.loginIsValid && this.state.passwordIsValid);
 
   loginHandler = (e) => {
     this.setState({
       login: e.target.value,
       loginIsValid: !!e.target.value,
-    })
+    });
   }
 
   passwordHandler = (e) => {
     this.setState({
       password: e.target.value,
-      passwordIsValid: !!e.target.value,
+      passwordIsValid: e.target.value.length ? true : null,
     });
   }
 
+  getButtonDisableState = () => !(
+    this.state.loginIsValid && this.state.passwordIsValid
+  )
+
   submitFrom = async () => {
     try {
-      const res = await login(this.state.login, this.state.password);
+      const res = await register(this.state.login, this.state.password);
       if (res.ok) {
-        try {
-          const data = await res.json();
-          localStorage.setItem('token', `JWT ${data.token}`);
-        } catch (err) {
-          console.error(err);
-        }
+        alert('You\'re succesfuly registered');
+      } else {
+        alert('User already exist');
       }
     } catch (err) {
       console.error(err);
@@ -50,25 +50,19 @@ class Login extends Component {
         <form>
           <FormGroup>
             <ControlLabel>Login</ControlLabel>
-            <FormControl autoFocus type="text" onChange={this.loginHandler} />
+            <FormControl autoFocus type="text" onChange={this.loginHandler} value={this.state.login} />
           </FormGroup>
           <FormGroup>
             <ControlLabel>Password</ControlLabel>
             <FormControl type="password" onChange={this.passwordHandler} value={this.state.password} />
           </FormGroup>
-          <Button
-            bsSize="large"
-            bsStyle="primary"
-            onClick={this.submitFrom}
-            disabled={this.getButtonDisableState()}
-          >
-            Login
-          </Button>
+          <FormGroup>
+            <Button bsSize="large" bsStyle="primary" onClick={this.submitFrom} disabled={this.getButtonDisableState()}>Register</Button>
+          </FormGroup>
         </form>
       </Col>
     );
   }
 }
 
-
-export default Login;
+export default Register;

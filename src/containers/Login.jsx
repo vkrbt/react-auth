@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { FormGroup, ControlLabel, FormControl, Col, Button } from 'react-bootstrap';
-import register from './api/register';
+import { login } from '../actions/login';
 
-class Register extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -12,6 +13,7 @@ class Register extends Component {
       passwordIsValid: null,
     };
   }
+  getButtonDisableState = () => !(this.state.loginIsValid && this.state.passwordIsValid);
 
   loginHandler = (e) => {
     this.setState({
@@ -23,25 +25,12 @@ class Register extends Component {
   passwordHandler = (e) => {
     this.setState({
       password: e.target.value,
-      passwordIsValid: e.target.value.length ? true : null,
+      passwordIsValid: !!e.target.value,
     });
   }
 
-  getButtonDisableState = () => !(
-    this.state.loginIsValid && this.state.passwordIsValid
-  )
-
-  submitFrom = async () => {
-    try {
-      const res = await register(this.state.login, this.state.password);
-      if (res.ok) {
-        alert(`You're succesfuly registered`);
-      } else {
-        alert(`User already exist`);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  submitFrom = () => {
+    this.props.login(this.state.login, this.state.password);
   }
 
   render() {
@@ -50,19 +39,32 @@ class Register extends Component {
         <form>
           <FormGroup>
             <ControlLabel>Login</ControlLabel>
-            <FormControl autoFocus type="text" onChange={this.loginHandler} value={this.state.login} />
+            <FormControl autoFocus type="text" onChange={this.loginHandler} />
           </FormGroup>
           <FormGroup>
             <ControlLabel>Password</ControlLabel>
             <FormControl type="password" onChange={this.passwordHandler} value={this.state.password} />
           </FormGroup>
-          <FormGroup>
-            <Button bsSize="large" bsStyle="primary" onClick={this.submitFrom} disabled={this.getButtonDisableState()}>Register</Button>
-          </FormGroup>
+          <Button
+            bsSize="large"
+            bsStyle="primary"
+            onClick={this.submitFrom}
+            disabled={this.getButtonDisableState()}
+          >
+            Login
+          </Button>
         </form>
       </Col>
     );
   }
 }
 
-export default Register;
+const mapStateToProps = store => ({
+  loginState: store.loginReducer,
+});
+
+const mapDispatchToProps = dispatch => ({
+  login: (name, pass) => dispatch(login(name, pass)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

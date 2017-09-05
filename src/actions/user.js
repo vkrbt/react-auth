@@ -1,7 +1,6 @@
 import { USER_REQUEST, USER_SUCCESS, USER_ERROR } from '../types/user';
 import fetchUser from '../api/user';
 
-
 const getUser = () => async (dispatch) => {
   dispatch({ type: USER_REQUEST });
   try {

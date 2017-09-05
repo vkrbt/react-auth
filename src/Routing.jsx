@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import Home from './components/Home';
+import Chat from './containers/Chat';
 import App from './App';
 import Login from './containers/Login';
 import Register from './containers/Register';
@@ -25,7 +25,7 @@ const redirectIfNotLoggedIn = (nextState, replace) => {
 const Routing = (
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Home} onEnter={redirectIfNotLoggedIn} />
+      <IndexRoute component={Chat} onEnter={redirectIfNotLoggedIn} />
       <Route path="/login" component={Login} onEnter={redirectIfLoggedIn} />
       <Route path="/register" component={Register} onEnter={redirectIfLoggedIn} />
     </Route>

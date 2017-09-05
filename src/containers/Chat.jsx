@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormControl, Button } from 'react-bootstrap';
-import message from '../sockets/index';
+import socket from '../sockets/index';
+import Message from '../components/Message';
 
 class Chat extends Component {
   constructor() {
@@ -11,22 +12,28 @@ class Chat extends Component {
     };
   }
 
+  componentDidMount() {
+    socket.on('message', (message) => {
+      this.setState({
+        message: '',
+        messages: [...this.state.messages, message],
+      });
+    });
+  }
+
   messageHandler = (e) => {
     this.setState({ message: e.target.value });
   }
 
   send = () => {
-    message.send(this.state.message);
-    this.setState({
-      message: '',
-      messages: [...this.state.messages, this.state.message],
-    });
+    socket.emit('message', this.state.message.trim());
+    this.setState({ message: '' });
   }
   render() {
     return (
       <div>
         <ul>
-          {this.state.messages.map((message, i) => <li key={i}>{message}</li>)}
+          {this.state.messages.map(message => <Message key={message._id} message={message} />)}
         </ul>
         <FormControl
           type="text"
@@ -34,7 +41,7 @@ class Chat extends Component {
           onChange={this.messageHandler}
           value={this.state.message}
         />
-        <Button onClick={this.send}>Send</Button>
+        <Button onClick={this.send} disabled={!this.state.message.trim()}>Send</Button>
       </div>
     );
   }

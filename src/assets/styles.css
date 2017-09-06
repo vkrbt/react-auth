@@ -2,7 +2,16 @@ a {
   cursor: pointer;
 }
 
-body{
+body {
+  padding-top: 90px;
+  padding-bottom: 50px;
+}
+
+.messages-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
   padding-top: 90px;
   padding-bottom: 50px;
 }
@@ -22,6 +31,47 @@ body{
   padding: 15px 0;
 }
 
-.scroll{
+.scroll {
   position: absolute;
+}
+
+.message-container {
+  display: block;
+}
+
+.message {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.message--my {
+  float: right;
+}
+
+.message__time {
+  color: #B4B4B4;
+}
+
+.message__time::before {
+  content: 'on';
+  padding: 0 5px;
+}
+
+.message__body {
+  background: #EFF8FF;
+  position: relative;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #D8ECFF;
+}
+
+.message__body::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: -20px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #D8ECFF;
 }

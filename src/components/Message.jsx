@@ -4,7 +4,7 @@ import { Panel } from 'react-bootstrap';
 function Message(props) {
   return (
     <Panel
-      header={props.message.userId}
+      header={props.message.user.name}
       footer={<div>{props.message.time}</div>}
     >
       {props.message.text}

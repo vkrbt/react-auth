@@ -1,3 +1,27 @@
 a {
   cursor: pointer;
 }
+
+body{
+  padding-top: 90px;
+  padding-bottom: 50px;
+}
+
+.input-group-btn .btn,
+.input-group-btn .btn:hover {
+  box-shadow: none;
+  background: none;
+}
+
+.message-input {
+  position: fixed;
+  background-color: rgb(236, 240, 246);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+}
+
+.scroll{
+  position: absolute;
+}

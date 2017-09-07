@@ -11,7 +11,7 @@ const initialState = {
   messages: [],
 };
 
-const sortMessagesByDate = (a, b) =>  a.time - b.time;
+const sortMessagesByDate = (a, b) => b.time - a.time;
 
 const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -28,7 +28,7 @@ const messagesReducer = (state = initialState, action) => {
     case HISTORY_RECEIVED:
       return {
         ...state,
-        messages: action.messages,
+        messages: action.messages.sort(sortMessagesByDate),
       };
     case SOCKETS_MESSAGE_RECEIVED:
       return {

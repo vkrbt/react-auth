@@ -1,4 +1,5 @@
 import { stringify } from 'query-string';
+import hostConfig from './config';
 
 const register = (name, password) => {
   const query = { name, password };
@@ -9,7 +10,7 @@ const register = (name, password) => {
     },
     body: stringify(query),
   };
-  return fetch('http://localhost:3101/register', config);
+  return fetch(`http://${hostConfig.host}:${hostConfig.port}/register`, config);
 };
 
 export default register;

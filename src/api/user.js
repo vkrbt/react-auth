@@ -1,3 +1,5 @@
+import hostConfig from './config';
+
 const fetchUser = () => {
   const config = {
     headers: {
@@ -5,7 +7,7 @@ const fetchUser = () => {
       Authorization: localStorage.getItem('token'),
     },
   };
-  return fetch('http://localhost:3101/user', config);
+  return fetch(`http://${hostConfig.host}:${hostConfig.port}/user`, config);
 };
 
 export default fetchUser;

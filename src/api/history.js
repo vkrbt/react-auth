@@ -1,3 +1,5 @@
+import hostConfig from './config';
+
 const fetchHistory = (begin, limit) => {
   const config = {
     headers: {
@@ -5,7 +7,7 @@ const fetchHistory = (begin, limit) => {
       Authorization: localStorage.getItem('token'),
     },
   };
-  return fetch(`http://localhost:3101/history/${begin}/${limit}`, config);
+  return fetch(`http://${hostConfig.host}:${hostConfig.port}/history/${begin}/${limit}`, config);
 };
 
 export default fetchHistory;

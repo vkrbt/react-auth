@@ -1,8 +1,9 @@
 import io from 'socket.io-client';
 import { socketsConnect, socketsMessageReceive, socketsHistoryReceive } from '../actions/sockets';
 import fetchHistory from '../api/history';
+import hostConfig from '../api/config';
 
-const socket = io.connect('http://localhost:3101', {
+const socket = io.connect(`http://${hostConfig.host}:${hostConfig.port}`, {
   query: {
     token: localStorage.token,
   },
@@ -25,7 +26,6 @@ const subscribe = socket => (dispatch) => {
     dispatch(socketsConnect());
     dispatchHistory(dispatch);
   });
-
   socket.on('message', (message) => {
     dispatch(socketsMessageReceive(message));
   });

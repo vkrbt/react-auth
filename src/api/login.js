@@ -1,4 +1,5 @@
 import { stringify } from 'query-string';
+import hostConfig from './config';
 
 const fetchLogin = (name, password) => {
   const query = { name, password };
@@ -9,7 +10,7 @@ const fetchLogin = (name, password) => {
     },
     body: stringify(query),
   };
-  return fetch('http://localhost:3101/login', config);
+  return fetch(`http://${hostConfig.host}:${hostConfig.port}/login`, config);
 };
 
 export default fetchLogin;

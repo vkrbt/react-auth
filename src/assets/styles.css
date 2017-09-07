@@ -12,8 +12,9 @@ body {
   left: 0;
   top: 0;
   height: 100%;
-  padding-top: 90px;
-  padding-bottom: 50px;
+  width: 100%;
+  padding-top: 64px;
+  padding-bottom: 67px;
 }
 
 .input-group-btn .btn,
@@ -74,4 +75,13 @@ body {
   top: -20px;
   border: 10px solid transparent;
   border-bottom: 10px solid #D8ECFF;
+}
+
+.message--my .message__body::before {
+  left: auto;
+  right: 0;
+}
+
+.message--my .message__header{
+  text-align: right;
 }

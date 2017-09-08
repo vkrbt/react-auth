@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { FormControl, InputGroup, Button } from 'react-bootstrap';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Fa from 'react-fontawesome';
-import socket, { subscribe } from '../sockets/index';
+import socket from '../sockets/index';
+import { subscribe, unsubscribe } from '../sockets/subscribe';
 import Message from '../components/Message';
 
 class Chat extends Component {
@@ -17,6 +18,11 @@ class Chat extends Component {
   componentDidMount() {
     this.props.subscribe(socket);
   }
+
+  componentWillUnmount() {
+    unsubscribe(socket);
+  }
+
 
   messageHandler = (e) => {
     this.setState({ message: e.target.value });

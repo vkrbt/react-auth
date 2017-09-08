@@ -2,6 +2,7 @@ import { browserHistory } from 'react-router';
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT } from '../types/login';
 import fetchLogin from '../api/login';
 import getUser from '../actions/user';
+import storage from '../storage';
 
 const login = (name, password) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
@@ -9,8 +10,8 @@ const login = (name, password) => async (dispatch) => {
     const res = await fetchLogin(name, password);
     if (res.ok) {
       const data = await res.json();
-      localStorage.setItem('token', `JWT ${data.token}`);
-      dispatch({ type: LOGIN_SUCCESS, token: localStorage.getItem('token') });
+      storage.setToken(`JWT ${data.token}`);
+      dispatch({ type: LOGIN_SUCCESS, token: storage.getToken() });
       dispatch(getUser());
       browserHistory.push('/');
     } else {
@@ -23,7 +24,7 @@ const login = (name, password) => async (dispatch) => {
 };
 
 const logout = () => (dispatch) => {
-  localStorage.removeItem('token');
+  storage.removeToken();
   dispatch({ type: LOGOUT });
   browserHistory.push('/login');
 };
